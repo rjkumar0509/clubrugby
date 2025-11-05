@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ClubRugby — New Mexico × México Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f4ef; /* desert sand */
+      --accent-1:#c14411; /* adobe red */
+      --accent-2:#f6b042; /* warm gold */
+      --accent-3:#118c6b; /* deep green from Mexican palette */
+      --muted:#6b6b6b;
+      --card:#fff;
+      --glass: rgba(255,255,255,0.85);
+      --shadow: 0 6px 18px rgba(0,0,0,0.12);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(circle at 10% 10%, #fffdf8 0%, var(--bg) 35%), linear-gradient(180deg,#fff 0%, #fff7f3 100%);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:1rem 1.5rem;
+      position:sticky;
+      top:0;
+      background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+      backdrop-filter: blur(6px);
+      box-shadow:var(--shadow);
+      z-index:50;
+    }
+    .brand{
+      display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit
+    }
+    .logo-wrap{width:56px;height:56px;display:grid;place-items:center;border-radius:10px;padding:6px;background:linear-gradient(135deg,var(--accent-2),var(--accent-1));box-shadow:0 4px 12px rgba(0,0,0,0.12)}
+    .logo-sigil{width:40px;height:40px}
+    h1{font-size:1.05rem;margin:0;font-weight:700}
+    header nav{display:flex;gap:1rem;align-items:center}
+    a.btn{padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn-shop{background:var(--accent-3);color:#fff}
+    .btn-ghost{background:transparent;border:2px solid rgba(0,0,0,0.06)}
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:center;padding:2rem 1.5rem;
+      max-width:1200px;margin:18px auto;
+    }
+    .hero-left{padding:1.2rem;background:linear-gradient(90deg, rgba(193,68,17,0.03), rgba(17,140,107,0.02));border-radius:16px}
+    .eyebrow{display:inline-block;background:linear-gradient(90deg,var(--accent-2),var(--accent-1));padding:6px 10px;border-radius:999px;color:#fff;font-weight:700;font-size:0.8rem}
+    .hero h2{margin:0 0 0.5rem 0;font-size:2rem}
+    .lede{color:var(--muted);margin-bottom:1rem}
+    .cta-row{display:flex;gap:0.75rem}
+
+    /* right panel hero */
+    .hero-right{position:relative;padding:1rem;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.8),var(--glass));box-shadow:var(--shadow)}
+    .pattern-band{height:110px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    /* simple decorative pattern inspired by Mexican tiles */
+    .tile{width:90%;height:84px;background:repeating-linear-gradient(45deg, var(--accent-1) 0 12px, var(--accent-2) 12px 24px, var(--accent-3) 24px 36px);opacity:0.95;border-radius:8px}
+
+    /* Merchandise */
+    .store{max-width:1200px;margin:12px auto;padding:1rem}
+    .store-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .filters{display:flex;gap:8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+    .product-art{height:160px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.03),rgba(0,0,0,0.02));position:relative}
+    .price{font-weight:700}
+    .meta{color:var(--muted);font-size:0.9rem}
+    .add{margin-top:auto;display:flex;gap:8px}
+    .qty{width:60px;padding:8px;border-radius:8px;border:1px solid #e6e6e6}
+
+    /* cart */
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:var(--accent-1);color:#fff;border-radius:999px;padding:4px 7px;font-size:0.8rem}
+    .cart-modal{position:fixed;right:18px;bottom:18px;width:360px;max-width:calc(100% - 40px);background:var(--card);border-radius:12px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,0.18);display:none;z-index:100}
+    .cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #eee}
+    .empty{color:var(--muted);text-align:center;padding:18px}
+
+    /* footer */
+    footer{max-width:1200px;margin:30px auto 60px;padding:2rem 1rem;border-top:1px solid rgba(0,0,0,0.04);display:flex;justify-content:space-between;gap:12px;align-items:center}
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      header{padding:10px}
+      .hero-right{order:-1}
+    }
+
+    /* small svg patterns */
+    .zia{width:84px;height:84px}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="#">
+      <div class="logo-wrap" aria-hidden>
+        <!-- Zia sun + subtle Mexican diamond -->
+        <svg class="logo-sigil" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ClubRugby logo">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#f6b042" />
+              <stop offset="1" stop-color="#c14411" />
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="10" fill="url(#g1)" />
+          <!-- simplified Zia-style sun -->
+          <g transform="translate(32,32)" fill="#fff">
+            <circle r="6" />
+            <rect x="-3" y="-22" width="6" height="14" rx="3" />
+            <rect x="-3" y="8" width="6" height="14" rx="3" />
+            <rect x="-22" y="-3" width="14" height="6" rx="3" />
+            <rect x="8" y="-3" width="14" height="6" rx="3" />
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h1>ClubRugby</h1>
+        <div style="font-size:0.85rem;color:var(--muted)">New Mexico × México Collection</div>
+      </div>
+    </a>
+
+    <nav>
+      <a class="btn btn-ghost" href="#about">About</a>
+      <a class="btn btn-ghost" href="#store">Store</a>
+      <button id="cartToggle" class="btn btn-shop cart-btn" aria-expanded="false">Cart <span id="cartCount" class="cart-count" style="display:none">0</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="about">
+      <div class="hero-left">
+        <div class="eyebrow">Limited Drop</div>
+        <h2>Herencia & Heart — Rugby gear inspired by the desert and the barrio</h2>
+        <p class="lede">Hand-finished jerseys, warm hoodies, and bold scarves that combine New Mexico’s Zia spirit with México’s vibrant tile motifs. Built for the pitch, styled for the street.</p>
+        <div class="cta-row">
+          <a class="btn btn-shop" href="#store">Shop the Drop</a>
+          <a class="btn btn-ghost" href="#collections">See Collections</a>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-hidden>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+          <svg class="zia" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" rx="14" fill="url(#g2)"/>
+            <defs>
+              <linearGradient id="g2" x1="0" x2="1"><stop offset="0'" stop-color="#f6b042"/><stop offset="1" stop-color="#c14411"/></linearGradient>
+            </defs>
+            <g transform="translate(60,60)" fill="#ffffff">
+              <circle r="14" />
+              <rect x="-6" y="-46" width="12" height="22" rx="5" />
+              <rect x="-6" y="24" width="12" height="22" rx="5" />
+              <rect x="-46" y="-6" width="22" height="12" rx="5" />
+              <rect x="24" y="-6" width="22" height="12" rx="5" />
+            </g>
+          </svg>
+          <div>
+            <div style="font-weight:700">Rooted in place</div>
+            <div style="color:var(--muted)">Designs that celebrate land, sport, and community.</div>
+          </div>
+        </div>
+
+        <div class="pattern-band"><div class="tile" aria-hidden></div></div>
+
+        <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+          <div style="flex:1">
+            <div style="font-weight:700">Free shipping over $75</div>
+            <div style="color:var(--muted);font-size:0.95rem">Ships from Albuquerque & Guadalajara</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:800;color:var(--accent-1);font-size:1.2rem">New Drop</div>
+            <div style="font-size:0.8rem;color:var(--muted)">Oct 2025</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="store" id="store">
+      <div class="store-header">
+        <h3 style="margin:0">Merchandise</h3>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="filters">
+            <select id="filterCat" aria-label="Filter category">
+              <option value="all">All</option>
+              <option value="jersey">Jerseys</option>
+              <option value="hoodie">Hoodies</option>
+              <option value="cap">Caps</option>
+              <option value="scarf">Scarves</option>
+            </select>
+          </div>
+          <input id="search" placeholder="Search products..." style="padding:8px;border-radius:10px;border:1px solid #eee" />
+        </div>
+      </div>
+
+      <div class="grid" id="products">
+        <!-- product cards inserted by JS -->
+      </div>
+    </section>
+
+    <!-- cart modal -->
+    <div class="cart-modal" id="cartModal" aria-hidden="true">
+      <h4 style="margin:0 0 8px 0">Your cart</h4>
+      <div id="cartItems"></div>
+      <div id="cartEmpty" class="empty">Your cart is empty — add some gear!</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div style="font-weight:700">Total: <span id="cartTotal">$0.00</span></div>
+        <button id="checkout" class="btn btn-shop">Checkout</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <strong>ClubRugby</strong>
+      <div style="color:var(--muted)">New Mexico × México • Albuquerque & Guadalajara</div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a class="btn btn-ghost" href="#">Instagram</a>
+      <a class="btn btn-ghost" href="#">Facebook</a>
+      <a class="btn btn-ghost" href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const PRODUCTS = [
+      {id:1,title:'Zia Heritage Jersey',price:79.00,cat:'jersey',desc:'Lightweight match jersey with Zia chest sigil and tile sleeve.',color:['Adobe Red','White']},
+      {id:2,title:'Bordado Rugby Hoodie',price:64.00,cat:'hoodie',desc:'Heavyweight hoodie with embroidered crest and Mexican tile print.',color:['Green','Black']},
+      {id:3,title:'Cantina Snap Cap',price:24.00,cat:'cap',desc:'Adjustable cap with stitched Zia and woven band.',color:['Tan','Green']},
+      {id:4,title:'Dos Lomas Scarf',price:29.00,cat:'scarf',desc:'Double-sided scarf mixing zigzag Serape stripes and Zia motif.',color:['Multi']},
+      {id:5,title:'Rugby Travel Tee',price:22.00,cat:'jersey',desc:'Everyday tee with subtle crest — perfect off the pitch.',color:['White','Black']},
+      {id:6,title:'Player Warm-Up Jacket',price:89.00,cat:'hoodie',desc:'Wind-resistant jacket with hidden pockets and bold back print.',color:['Navy']}
+    ];
+
+    const productsEl = document.getElementById('products');
+    const filterEl = document.getElementById('filterCat');
+    const searchEl = document.getElementById('search');
+    const cartToggle = document.getElementById('cartToggle');
+    const cartModal = document.getElementById('cartModal');
+    const cartCount = document.getElementById('cartCount');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartTotal = document.getElementById('cartTotal');
+
+    let CART = JSON.parse(localStorage.getItem('clubrugby_cart')||'{}');
+
+    function fmt(n){return '$'+n.toFixed(2)}
+
+    function renderProducts(){
+      const q = searchEl.value.trim().toLowerCase();
+      const cat = filterEl.value;
+      productsEl.innerHTML = '';
+      const list = PRODUCTS.filter(p=>{
+        if(cat!=='all' && p.cat!==cat) return false;
+        if(q && !(p.title.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))) return false;
+        return true;
+      });
+      if(list.length===0){productsEl.innerHTML='<div class="empty">No products found.</div>';return}
+      list.forEach(p=>{
+        const card = document.createElement('div');card.className='card';
+        card.innerHTML = `
+          <div class="product-art">
+            <div style="text-align:center">
+              <svg width="140" height="90" viewBox="0 0 140 90" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                <rect width="140" height="90" rx="8" fill="#ffffff" stroke="rgba(0,0,0,0.03)"/>
+                <text x="50%" y="52%" text-anchor="middle" fill="#666" font-size="14">${p.cat.toUpperCase()}</text>
+              </svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:700">${p.title}</div>
+              <div class="price">${fmt(p.price)}</div>
+            </div>
+            <div class="meta">${p.desc}</div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <select class="size" aria-label="Select size">
+                <option>S</noption>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+              </select>
+              <div style="color:var(--muted);font-size:0.85rem">Colors: ${p.color.join(', ')}</div>
+            </div>
+            <div class="add">
+              <input type="number" min="1" value="1" class="qty" />
+              <button class="btn btn-shop add-to-cart">Add</button>
+            </div>
+          </div>
+        `;
+        // attach add event
+        const addBtn = card.querySelector('.add-to-cart');
+        addBtn.addEventListener('click',()=>{
+          const qty = parseInt(card.querySelector('.qty').value)||1;
+          addToCart(p.id,qty);
+        });
+        productsEl.appendChild(card);
+      });
+    }
+
+    function addToCart(id,qty){
+      CART[id] = (CART[id]||0)+qty;
+      saveCart();
+      renderCartBadge();
+      showToast('Added to cart');
+    }
+
+    function saveCart(){localStorage.setItem('clubrugby_cart',JSON.stringify(CART));}
+
+    function renderCartBadge(){
+      const total = Object.values(CART).reduce((s,n)=>s+n,0);
+      if(total>0){cartCount.style.display='inline-block';cartCount.textContent=total}else{cartCount.style.display='none'}
+    }
+
+    function renderCart(){
+      cartItemsEl.innerHTML='';
+      const ids = Object.keys(CART);
+      if(ids.length===0){cartEmpty.style.display='block';cartItemsEl.style.display='none';cartTotal.textContent=fmt(0);return}
+      cartEmpty.style.display='none';cartItemsEl.style.display='block';
+      let total=0;
+      ids.forEach(id=>{
+        const prod = PRODUCTS.find(p=>p.id==id);
+        const q = CART[id];
+        total += prod.price * q;
+        const div = document.createElement('div');div.className='cart-item';
+        div.innerHTML = `
+          <div style="flex:1">
+            <div style="font-weight:700">${prod.title}</div>
+            <div style="color:var(--muted);font-size:0.9rem">${q} × ${fmt(prod.price)}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+            <button class="btn btn-ghost small remove" data-id="${id}">Remove</button>
+          </div>
+        `;
+        cartItemsEl.appendChild(div);
+      });
+      cartTotal.textContent = fmt(total);
+      // attach remove events
+      document.querySelectorAll('.remove').forEach(btn=>{
+        btn.addEventListener('click',e=>{
+          const id = e.currentTarget.dataset.id;delete CART[id];saveCart();renderCart();renderCartBadge();
+        });
+      });
+    }
+
+    function toggleCart(){
+      const open = cartModal.style.display==='block';
+      cartModal.style.display = open? 'none':'block';
+      cartModal.setAttribute('aria-hidden', open? 'true':'false');
+      cartToggle.setAttribute('aria-expanded', (!open).toString());
+      renderCart();
+    }
+
+    function showToast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg; t.style.position='fixed';t.style.left='50%';t.style.transform='translateX(-50%)';t.style.bottom='22px';t.style.background='rgba(0,0,0,0.8)';t.style.color='#fff';t.style.padding='8px 12px';t.style.borderRadius='8px';t.style.zIndex=9999;document.body.appendChild(t);
+      setTimeout(()=>t.remove(),1400);
+    }
+
+    // events
+    filterEl.addEventListener('change',renderProducts);
+    searchEl.addEventListener('input',()=>{setTimeout(renderProducts,120)});
+    cartToggle.addEventListener('click',toggleCart);
+    document.addEventListener('click',e=>{
+      if(!cartModal.contains(e.target) && !cartToggle.contains(e.target) && cartModal.style.display==='block'){
+        cartModal.style.display='none';cartModal.setAttribute('aria-hidden','true');cartToggle.setAttribute('aria-expanded','false');
+      }
+    });
+
+    // initial
+    renderProducts();renderCartBadge();
+
+    // faux checkout
+    document.getElementById('checkout').addEventListener('click',()=>{
+      if(Object.keys(CART).length===0){showToast('Cart is empty');return}
+      showToast('Checkout — redirecting to secure payment (demo)');
+      // clear cart
+      CART={};saveCart();renderCart();renderCartBadge();
+    });
+  </script>
+</body>
+</html>
